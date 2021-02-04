@@ -1,5 +1,6 @@
 <?php
-require_once 'database/Data.php';
+  include_once "includes/autoloader.php";
+ 
 //declare variables & get the values
 if (isset($_POST['submit'])) {
   $nameofpatient = htmlspecialchars($_POST['nameofpatient']);
@@ -14,9 +15,7 @@ if (isset($_POST['submit'])) {
  
 
   $insertData = new Data();
-  $insertData->insertPatientsData($nameofpatient, $dateofbirth, $comments);
-  $insertData->insertGenderData($gender);
-  $insertData->insertServiceData($typeofservice);
+  $insertData->insertData($nameofpatient, $dateofbirth, $comments, $gender, $typeofservice);
 }
 ?>
 <!doctype html>
@@ -40,7 +39,7 @@ if (isset($_POST['submit'])) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
           </li>
         </ul>
         <ul class="nav justify-content-center">
