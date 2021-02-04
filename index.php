@@ -1,3 +1,10 @@
+<?php
+include_once 'includes/autoloader.php';
+//get data
+$newData = new Data();
+$data = $newData->getData();
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -26,12 +33,9 @@
           <li class="nav-item">
             <a class="nav-link" href="add-patients.php">Add Patients</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="view-patients.php">View Patients</a>
-          </li>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">User</a>
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Dr Odidi</a>
           </li>
         </ul>
       </div>
@@ -42,14 +46,40 @@
       <div class="col-md-2">
         <div class="card mt-5" style="width: 18rem;">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+            <li class="list-group-item">Todays Appointments</li>
+            <li class="list-group-item">Rescheduled Appointments</li>
+            <li class="list-group-item">Notes</li>
           </ul>
         </div>
-        <div class="col-md-12">
-
         </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+          <table class="table mt-5">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Type of service </th>
+                <th scope="col">General Comments  </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><?php echo $data['patient_name']; ?></th>
+                
+                <td><?php echo date_format(date_create($data['patient_dob']), "d, F Y"); ?></td>
+
+                <td><?php echo $data['gender_type']; ?></td>
+                <td><?php echo $data['service_type']; ?></td>
+                <td><?php echo $data['general_comments']; ?></td>
+              </tr>
+             
+            </tbody>
+          </table>
+        </div>
+    <div class="col-md-1"></div>
+
       </div>
 
     </div>
