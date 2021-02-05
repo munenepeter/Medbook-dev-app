@@ -13,7 +13,74 @@ class Data extends Database{
         $stmt = $this->connect()->query($sql)->fetch();   
         return $stmt; 
     }
-    public function insertData($nameofpatient, $dateofbirth, $comments, $gender, $typeofservice){
+      public function insertData($nameofpatient, $dateofbirth, $gender, $typeofservice, $comments){
+      
+        // insert into respective tables
+        if (!$this->connect()) {
+            echo "There is no connection to the db";
+        }else {
+            echo "There is a connection to the db";
+           $sql1 = $this->connect();
+
+           $stmt = $sql1->query("INSERT INTO `tbl_patient`( `patient_id` `patient_name`, `patient_dob`, `general_comments`) 
+            VALUES ('$nameofpatient', '$dateofbirth', '$comments');");
+            $sql1->exec($stmt);
+           
+           $id = $sql1->lastInsertId();
+          
+ 
+          $stmt1 = $sql1->query("INSERT INTO `tbl_gender`( `patient_id` `gender_id`, `gender_type`) 
+            VALUES ('$id',1,'$gender');");
+           $sql1->exec($stmt1);
+          
+        
+
+           $stmt2 = $sql1->query("INSERT INTO `tbl_service`( `patient_id` `service_type`) 
+            VALUES ('$id','$typeofservice');");
+           $sql1->exec($stmt2);
+         
+           
+              if ($sql1->exec($stmt)) {
+                echo "<br>it is executing ";
+              }else {
+                echo "<br>it is not executing";
+              }  
+        }
+       
+
+   /*   public function insertData($nameofpatient, $dateofbirth, $gender, $typeofservice, $comments){
+      
+        // insert into respective tables
+        if (!$this->connect()) {
+            echo "There is no connection to the db";
+        }else {
+            echo "There is a connection to the db";
+           $sql1 = $this->connect();
+           $sql1->exec("INSERT INTO `tbl_patient`( `patient_name`, `patient_dob`, `general_comments`) 
+            VALUES ('$nameofpatient','$dateofbirth','$comments');");
+            //get the id
+            $id = $sql1->lastInsertId();
+            //second query
+           $sql1->exec("INSERT INTO `tbl_gender`(`gender_id`, `gender_type`)
+              VALUES ('$id',1,'$gender');");
+
+           $sql1->exec("INSERT INTO `tbl_service`(`service_type`)
+              VALUES ('$id','$typeofservice');");
+           
+            
+
+              if ($sql1) {
+                echo "<br>it is executing ";
+              }else {
+                echo "it is not executing";
+              }  
+        }
+        */
+
+    
+     
+    }
+   /*  public function insertData($nameofpatient, $dateofbirth, $comments, $gender, $typeofservice){
         //start transaaction
         try {  
       $this->connect()->beginTransaction();
@@ -38,7 +105,7 @@ class Data extends Database{
       } catch (Exception $e) {
             echo "Failed: " . $e->getMessage();
 }
-    }
+    } */
   
 
 }
