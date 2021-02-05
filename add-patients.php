@@ -1,34 +1,41 @@
 <?php
-  include_once "includes/autoloader.php";
- 
-//declare variables & get the values
-if (isset($_POST['submit'])) {
-  $nameofpatient = htmlspecialchars($_POST['nameofpatient']);
-  $dateofbirth = htmlspecialchars($_POST['date']);
-  foreach ($_POST['gender'] as $select) {
-    $gender = htmlspecialchars($select); // Displaying Selected Value
-  }
-  foreach ($_POST['typeofservice'] as $select) {
-    $typeofservice = htmlspecialchars($select); // Displaying Selected Value
-  }
-  $comments = htmlspecialchars($_POST['comments']);
- 
+include_once "includes/autoloader.php";
 
-  $insertData = new Data();
-  $insertData->insertData($nameofpatient, $dateofbirth, $comments, $gender, $typeofservice);
+//Check if the submit button was submitted
+if (isset($_POST['submit'])) {
+
+  //Validate the input with the Validator class
+  $validate = new Validator($_POST);
+  $validate->validateform(); 
+
+  #for testing  purposes 
+  //print_r($_POST);
+
+ //Get the values From the POST super globalArrays
+  $nameofpatient = $_POST['nameofpatient'];
+  $dateofbirth = $_POST['date'];
+  $gender = $_POST['gender'];
+  $typeofservice = $_POST['typeofservice'];
+  $comments = $_POST['comments'];
+
+  //Get The select inputs from thier respectively  Arrays
+  $gender = $gender[0];
+  $typeofservice = $typeofservice[0];
+
+  //Instatiate the Data class to insert the data into the db
+
+  // $insertData = new Data();
+  //$insertData->insertData($nameofpatient, $dateofbirth, $gender, $typeofservice, $comments);
 }
 ?>
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
   <title>Medbook-dev-app</title>
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -47,7 +54,7 @@ if (isset($_POST['submit'])) {
             <a class="nav-link" href="add-patients.php">Add Patients</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="view-patients.php">View Patients</a>
+            <a class="nav-link" href="index.php">View Patients</a>
           </li>
           </li>
           <li class="nav-item">
@@ -62,9 +69,9 @@ if (isset($_POST['submit'])) {
       <div class="col-md-2">
         <div class="card mt-5" style="width: 18rem;">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+            <li class="list-group-item">Some features</li>
+            <li class="list-group-item">To be Added</li>
+            <li class="list-group-item">I don't Know when</li>
           </ul>
         </div>
       </div>
@@ -72,7 +79,7 @@ if (isset($_POST['submit'])) {
       <div class="col-md-6 mr-2 ">
         <div class="card  mt-5">
           <div class="card-body">
-            <form action="" method="POST" class="form-control">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="form-control">
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Name of Patient</label>
                 <input name="nameofpatient" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name of Patient">
@@ -110,11 +117,57 @@ if (isset($_POST['submit'])) {
         </div>
       </div>
       <div class="col-md-3">
+          <?php
+           if(empty($validate->errors)){
+             $display = "none";
+           }else{
+            $display = ""; 
+           }   
+          ?>
+        <div class="card text-white bg-danger mt-5" style="width: 18rem; display:<?php echo $display; ?>;">
+          <div class="card-header text-center">
+            Form Errors.
+          </div>
+          
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="alert alert-danger " role="alert">
+                <?php
+                echo $validate->errors['NameofPatient'] ?? "";
+                ?>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="alert alert-danger " role="alert">
+                <?php
+                echo $validate->errors['DateofBirth'] ?? "";
+                ?>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="alert alert-danger" role="alert">
+                <?php
+                echo $validate->errors['Gender'] ?? "";
+                ?></div>
+            </li>
+            <li class="list-group-item">
+              <div class="alert alert-danger " role="alert">
+                <?php
+                echo $validate->errors['TypeofService'] ?? "";
+                ?></div>
+            </li>
+            <li class="list-group-item">
+              <div class="alert alert-danger " role="alert">
+                <?php
+                echo $validate->errors['GeneralComments'] ?? "";
+                ?></div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <!-- Optional JavaScript; choose one of the two! -->
   </div>
-  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <!-- Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
 </body>
