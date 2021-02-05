@@ -1,7 +1,8 @@
 <?php
 include_once 'includes/autoloader.php';
-//get data
+//Instatiate the Data class 
 $newData = new Data();
+//get data
 $data = $newData->getData();
 ?>
 
@@ -86,7 +87,6 @@ $data = $newData->getData();
 
 
   </div>
-  <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
