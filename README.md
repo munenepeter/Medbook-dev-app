@@ -1,6 +1,6 @@
 # Medbook-dev-app
 
-Medbook-dev-app is a Simple PHP Web Application that solves the issue of filing patients' records.
+Medbook-dev-app is a Simple PHP Web Application built on top of the famous Bootstrap CSS Library that solves the issue of filing patients' records.
 
 ## Installation
 
