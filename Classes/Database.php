@@ -12,16 +12,5 @@ Class Database {
         $pdo->setAttribute( PDO::ATTR_AUTOCOMMIT, FALSE );
         return $pdo;
     }
-  /*    public function connected(){
-		if ($this->connect()){
-			return $this->connect();
-		}else{
-			try{
-			return $this->connect() = new PDO('mysql:host='.$this->host.';dbName='.$this->dbNamedbname.';charset=utf8mb4',
-							   $this->user, $this->password);
-			}catch (PDOException $e){
-				echo "Unable to connect to the PDO database: " . $e->getMessage(); 
-			}
-		}
-	}  */
+
 }
