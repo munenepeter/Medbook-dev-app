@@ -23,9 +23,8 @@ if (isset($_POST['submit'])) {
   $typeofservice = $typeofservice[0];
 
   //Instatiate the Data class to insert the data into the db
-
-  // $insertData = new Data();
-  //$insertData->insertData($nameofpatient, $dateofbirth, $gender, $typeofservice, $comments);
+  $insertData = new Data();
+  $insertData->insertData($nameofpatient, $dateofbirth, $gender, $typeofservice, $comments);
 }
 ?>
 <!doctype html>
@@ -167,7 +166,7 @@ if (isset($_POST['submit'])) {
       </div>
     </div>
   </div>
-  <!-- Bootstrap Bundle with Popper -->
+  <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
 </body>
