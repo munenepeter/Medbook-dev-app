@@ -3,7 +3,11 @@ include_once 'includes/autoloader.php';
 //Instatiate the Data class 
 $newData = new Data();
 //get data
-$data = $newData->getData();
+$row = $newData->getData();
+
+//print_r($row);
+
+
 ?>
 
 <!doctype html>
@@ -66,6 +70,10 @@ $data = $newData->getData();
               </tr>
             </thead>
             <tbody>
+            <?php 
+              foreach ($row as $data) {
+            ?>
+
               <tr>
                 <th scope="row"><?php echo $data['patient_name']; ?></th>
                 
@@ -75,17 +83,15 @@ $data = $newData->getData();
                 <td><?php echo $data['service_type']; ?></td>
                 <td><?php echo $data['general_comments']; ?></td>
               </tr>
-             
+             <?php
+             }
+             ?>
             </tbody>
           </table>
         </div>
     <div class="col-md-1"></div>
-
       </div>
-
     </div>
-
-
   </div>
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
