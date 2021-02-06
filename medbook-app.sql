@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 06, 2021 at 12:38 PM
+-- Generation Time: Feb 06, 2021 at 05:59 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_gender` (
-  `gender_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `gender_type` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -38,9 +37,11 @@ CREATE TABLE `tbl_gender` (
 -- Dumping data for table `tbl_gender`
 --
 
-INSERT INTO `tbl_gender` (`gender_id`, `patient_id`, `gender_type`) VALUES
-(1, 1, 'Male'),
-(2, 2, 'male');
+INSERT INTO `tbl_gender` (`patient_id`, `gender_type`) VALUES
+(1, 'Male'),
+(2, 'male'),
+(3, 'male'),
+(13, 'female');
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,9 @@ CREATE TABLE `tbl_patient` (
 
 INSERT INTO `tbl_patient` (`patient_id`, `patient_name`, `patient_dob`, `general_comments`) VALUES
 (1, 'Peter', '2000-10-20 22:04:15', 'Abcv'),
-(2, 'mad', '2021-02-06 14:47:00', 'pooooioioi');
+(2, 'mad', '2021-02-06 14:47:00', 'pooooioioi'),
+(3, 'Name', '1988-12-20 22:04:15', 'In the previous tutorial, you learned how to query data from a single table using the SELECT statement'),
+(13, 'Samuel', '1958-01-20 22:04:15', 'In the previous tutorial you  statement');
 
 -- --------------------------------------------------------
 
@@ -80,7 +83,9 @@ CREATE TABLE `tbl_service` (
 
 INSERT INTO `tbl_service` (`patient_id`, `service_type`) VALUES
 (1, 'Innpatient'),
-(2, 'outpatient');
+(2, 'outpatient'),
+(3, 'inpatient'),
+(13, 'outpatient');
 
 -- --------------------------------------------------------
 
@@ -113,7 +118,7 @@ CREATE ALGORITHM=MERGE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vie
 -- Indexes for table `tbl_gender`
 --
 ALTER TABLE `tbl_gender`
-  ADD PRIMARY KEY (`gender_id`),
+  ADD PRIMARY KEY (`patient_id`),
   ADD KEY `patient_id` (`patient_id`);
 
 --
@@ -136,7 +141,7 @@ ALTER TABLE `tbl_service`
 -- AUTO_INCREMENT for table `tbl_patient`
 --
 ALTER TABLE `tbl_patient`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- Constraints for dumped tables
