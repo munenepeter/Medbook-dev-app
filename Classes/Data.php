@@ -1,4 +1,5 @@
 <?php
+//After development  remove
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -12,16 +13,81 @@ class Data extends Database{
         return $stmt; 
     }
       public function insertData($nameofpatient, $dateofbirth, $gender, $typeofservice, $comments){
-      
-        // insert into respective tables
-        if (!$this->connect()) {
-            echo "There is no connection to the db";
-        }else {
-            echo "There is a connection to the db";
 
-           $sql1 = $this->connect();
+      $sql1 =  "INSERT INTO `tbl_patient`(`patient_name`, `patient_dob`, `general_comments`) 
+           VALUES ('$nameofpatient','$dateofbirth','$comments');";
 
-           $stmt = $sql1->prepare("INSERT INTO `tbl_patient`(`patient_name`, `patient_dob`, `general_comments`) 
+           $this->connect()->query($sql1)->execute();   
+             if($this->connect()->exec($sql1)){
+                echo "success";
+              }else{
+                echo "Failure ";
+              }  
+
+
+            $sql2 = "INSERT INTO `tbl_service`(`patient_id`,`service_type`) 
+            VALUES ((SELECT `patient_id` FROM `tbl_patient` WHERE patient_name = '$nameofpatient'),'$typeofservice');";
+              
+           if($this->connect()->exec($sql2)){
+                echo " success<br>";
+              }else{
+                echo "Failure ";
+              }
+ 
+            $sql3 = "INSERT INTO `tbl_gender`(`patient_id`, `gender_type`) 
+            VALUES ((SELECT `patient_id` FROM `tbl_patient` WHERE patient_name = '$nameofpatient'), '$gender');";
+            
+            if($this->connect()->exec($sql3)){
+                echo "success<br>";
+              }else{
+                echo "Failure ";
+              }  
+         
+
+           
+/* 
+            public function insertData(){
+ 
+        // insert into respective tables 
+           $sql1 =  "INSERT INTO `tbl_patient`(`patient_name`, `patient_dob`, `general_comments`) 
+           VALUES ('Laptop','1978-09-20 22:04:15','Prepared statements are used to sanitize your input');";
+
+           $this->connect()->query($sql1)->execute();   
+             if($this->connect()->exec($sql1)){
+                echo "success";
+               
+              }else{
+                echo "Failure ";
+              } 
+        
+               $sql2 = "INSERT INTO `tbl_service`(`patient_id`,`service_type`) 
+            VALUES ((SELECT `patient_id` FROM `tbl_patient` WHERE patient_name = 'Laptop'),'inpatient');";
+              
+           if($this->connect()->exec($sql2)){
+                echo " success<br>";
+              }else{
+                echo "Failure ";
+              }
+
+              $sql3 = "INSERT INTO `tbl_gender`(`patient_id`, `gender_type`) 
+            VALUES ((SELECT `patient_id` FROM `tbl_patient` WHERE patient_name = 'Laptop'), 'male');";
+            
+            if($this->connect()->exec($sql3)){
+                echo "success<br>";
+              }else{
+                echo "Failure ";
+              } 
+
+
+ */
+
+
+
+
+
+
+
+          /*  $stmt = $sql1->prepare("INSERT INTO `tbl_patient`(`patient_name`, `patient_dob`, `general_comments`) 
             VALUES (:n, :d, :c);");
             $stmt->bindParam('n', $nameofpatient);
             $stmt->bindParam('d', $dateofbirth);
@@ -56,9 +122,9 @@ class Data extends Database{
                 echo "success";
               }else{
                 echo "Failure ";
-              }
+              } */
          
-        }
+     
        
 
   } 
