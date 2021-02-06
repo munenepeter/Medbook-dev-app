@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 04, 2021 at 09:57 PM
+-- Generation Time: Feb 06, 2021 at 12:38 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbl_gender` (
   `gender_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
-  `gender_type` tinytext NOT NULL
+  `gender_type` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -39,7 +39,8 @@ CREATE TABLE `tbl_gender` (
 --
 
 INSERT INTO `tbl_gender` (`gender_id`, `patient_id`, `gender_type`) VALUES
-(1, 1, 'Male');
+(1, 1, 'Male'),
+(2, 2, 'male');
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,8 @@ CREATE TABLE `tbl_patient` (
 --
 
 INSERT INTO `tbl_patient` (`patient_id`, `patient_name`, `patient_dob`, `general_comments`) VALUES
-(1, 'Peter', '2000-10-20 22:04:15', 'Abcv');
+(1, 'Peter', '2000-10-20 22:04:15', 'Abcv'),
+(2, 'mad', '2021-02-06 14:47:00', 'pooooioioi');
 
 -- --------------------------------------------------------
 
@@ -77,7 +79,31 @@ CREATE TABLE `tbl_service` (
 --
 
 INSERT INTO `tbl_service` (`patient_id`, `service_type`) VALUES
-(1, 'Innpatient');
+(1, 'Innpatient'),
+(2, 'outpatient');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_alldata`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_alldata` (
+`patient_name` varchar(100)
+,`patient_dob` datetime
+,`general_comments` text
+,`gender_type` text
+,`service_type` tinytext
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_alldata`
+--
+DROP TABLE IF EXISTS `view_alldata`;
+
+CREATE ALGORITHM=MERGE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_alldata`  AS  select `tbl_patient`.`patient_name` AS `patient_name`,`tbl_patient`.`patient_dob` AS `patient_dob`,`tbl_patient`.`general_comments` AS `general_comments`,`tbl_gender`.`gender_type` AS `gender_type`,`tbl_service`.`service_type` AS `service_type` from ((`tbl_patient` join `tbl_gender` on((`tbl_patient`.`patient_id` = `tbl_gender`.`patient_id`))) join `tbl_service` on((`tbl_patient`.`patient_id` = `tbl_service`.`patient_id`))) ;
 
 --
 -- Indexes for dumped tables
@@ -97,6 +123,12 @@ ALTER TABLE `tbl_patient`
   ADD PRIMARY KEY (`patient_id`);
 
 --
+-- Indexes for table `tbl_service`
+--
+ALTER TABLE `tbl_service`
+  ADD PRIMARY KEY (`patient_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -104,7 +136,7 @@ ALTER TABLE `tbl_patient`
 -- AUTO_INCREMENT for table `tbl_patient`
 --
 ALTER TABLE `tbl_patient`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
