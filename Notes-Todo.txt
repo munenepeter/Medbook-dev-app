@@ -7,3 +7,15 @@ INSERT INTO `tbl_patient`(`patient_name`, `patient_dob`, `general_comments`) VAL
 INSERT INTO `tbl_service`(`patient_id`,`service_type`) VALUES ((SELECT `patient_id` FROM `tbl_patient` WHERE patient_name = 'Samuel') ,'outpatient');
 
 INSERT INTO `tbl_gender`(`patient_id`, `gender_type`) VALUES ((SELECT `patient_id` FROM `tbl_patient` WHERE patient_name = 'Samuel'), 'female');
+
+
+$sq1 = "
+INSERT INTO `tbl_patient`(`patient_name`, `patient_dob`, `general_comments`) VALUES (?,?,?):";
+$stmt = $this->connect()->query($sql1);
+$stmt->execute([$nameofpatient],[$date],[$comments]);
+
+$id = $stmt->lastInsertId();
+
+$sql2 = "INSERT INTO `tbl_service`(`patient_id`,`service_type`) VALUES(?,?);";
+$stmt2 = $this->connect()->query($sql2);
+$stmt->execute ([$id],[$typeofservice]);
