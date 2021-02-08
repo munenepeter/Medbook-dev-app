@@ -9,13 +9,31 @@ INSERT INTO `tbl_service`(`patient_id`,`service_type`) VALUES ((SELECT `patient_
 INSERT INTO `tbl_gender`(`patient_id`, `gender_type`) VALUES ((SELECT `patient_id` FROM `tbl_patient` WHERE patient_name = 'Samuel'), 'female');
 
 
+
+//This is the first query
+//Inserts the respective rows into the tbl_patient
 $sq1 = "
 INSERT INTO `tbl_patient`(`patient_name`, `patient_dob`, `general_comments`) VALUES (?,?,?):";
 $stmt = $this->connect()->query($sql1);
 $stmt->execute([$nameofpatient],[$date],[$comments]);
 
+//This is the Id of the first query
+//That is the foreign key that is needed in the other tables
 $id = $stmt->lastInsertId();
 
+//Second query
+//Inserts to the tbl_service and takes in the patient_id from the first query
 $sql2 = "INSERT INTO `tbl_service`(`patient_id`,`service_type`) VALUES(?,?);";
 $stmt2 = $this->connect()->query($sql2);
-$stmt->execute ([$id],[$typeofservice]);
+$stmt2->execute ([$id],[$typeofservice]);
+
+
+//Third query
+$sql3 = "INSERT INTO `tbl_gender`(`patient_id`, `gender_type`)  VALUES(?,?);";
+$stmt3 = $this->connect()->query($sql3);
+$stmt3->execute ([$id],[$typeofservice]);
+
+
+#need to wrap the statements in a dB transaction
+#so that all the inserts change the database records 
+#at the same time.
