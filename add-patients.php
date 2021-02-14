@@ -26,6 +26,8 @@ if (isset($_POST['submit'])) {
   $insertData = new Data();
   $insertData->insertData($nameofpatient, $dateofbirth, $comments);
 
+  //trying to debug my code
+  //checking if the first query executes before trying to execute the next queries
   if($insertData->insertData($nameofpatient, $dateofbirth, $comments)){
      $insertData->insertrestData($nameofpatient, $gender, $typeofservice);
   }else{
