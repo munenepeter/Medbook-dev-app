@@ -24,7 +24,15 @@ if (isset($_POST['submit'])) {
 
   //Instatiate the Data class to insert the data into the db
   $insertData = new Data();
-  $insertData->insertData($nameofpatient, $dateofbirth, $gender, $typeofservice, $comments);
+  $insertData->insertData($nameofpatient, $dateofbirth, $comments);
+
+  if($insertData->insertData($nameofpatient, $dateofbirth, $comments)){
+     $insertData->insertrestData($nameofpatient, $gender, $typeofservice);
+  }else{
+    echo 'sorry Cannot insert';
+  }
+
+  
 }
 ?>
 <!doctype html>
