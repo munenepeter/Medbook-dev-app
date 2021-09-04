@@ -19,7 +19,7 @@ $stmt->execute([$nameofpatient],[$date],[$comments]);
 
 //This is the Id of the first query
 //That is the foreign key that is needed in the other tables
-$id = $stmt->lastInsertId();
+$id = $this->connect()->lastInsertId();
 
 //Second query
 //Inserts to the tbl_service and takes in the patient_id from the first query
