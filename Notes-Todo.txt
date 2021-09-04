@@ -1,3 +1,6 @@
+Fatal error: Uncaught Exception: Something is up with your Insert! insert into `tbl_service` (patient_id, service_type) values (:patient_id, :service_type) in C:\....\Medbook-dev-app\Classes\Data.php:64 Stack trace: #0 C:\....\Medbook-dev-app\Classes\Data.php(34): Data->insert('tbl_service', Array) #1 C:\....\Medbook-dev-app\add-patients.php(31): Data->_insertDataTest('Noble Houston', '1976-11-15', 'Amet atque volu...', 'female', 'outpatient') #2 {main} thrown in C:\....\Medbook-dev-app\Classes\Data.php on line 64
+
+
 Queries that successfully insert data into the db 
 /->These are for all thwe tables
 /->I might use db transactions to commit all of the queries
