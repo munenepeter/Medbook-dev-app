@@ -4,6 +4,7 @@ Class Database {
     private $user = "root";
     private $password = "";
     private $dbName = "medbook-app";
+    public $pdo;
 
     public function connect(){
         try {
@@ -11,6 +12,7 @@ Class Database {
         $pdo = new PDO($dsn, $this->user, $this->password);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $pdo->setAttribute( PDO::ATTR_AUTOCOMMIT, FALSE );
+        $this->pdo = $pdo;
         return $pdo;
         } catch (PDOException $e) {
             //throw $error;

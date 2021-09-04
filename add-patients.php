@@ -24,12 +24,12 @@ if (isset($_POST['submit'])) {
 
   //Instatiate the Data class to insert the data into the db
   $insertData = new Data();
-  $insertData->insertData($nameofpatient, $dateofbirth, $comments);
 
+// $insertData->_insertDataTest($nameofpatient, $dateofbirth, $comments, $gender, $typeofservice);
   //trying to debug my code
   //checking if the first query executes before trying to execute the next queries
-  if ($insertData->insertData($nameofpatient, $dateofbirth, $comments)) {
-    $insertData->insertrestData($nameofpatient, $gender, $typeofservice);
+  if ($insertData->_insertDataTest($nameofpatient, $dateofbirth, $comments, $gender, $typeofservice)) {
+    echo 'Inserted';
   } else {
     echo 'sorry Cannot insert';
   }
