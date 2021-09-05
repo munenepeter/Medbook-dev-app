@@ -1,9 +1,9 @@
 <?php
 include_once 'includes/autoloader.php';
 //Instatiate the Data class 
-$newData = new Data();
-//get data
-$row = $newData->getData();
+// $newData = new Data();
+// //get data
+// $row = $newData->getData();
 
 //print_r($row);
 
@@ -11,6 +11,11 @@ $row = $newData->getData();
 ?>
 
 <?php include_once "includes/head.php"; ?>
+<?php
+$database = Database::getInstance();
+$row = $database->getData();
+var_dump($row);
+?>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2">
