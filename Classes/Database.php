@@ -46,6 +46,7 @@ class Database {
        
     }
     public function getData(){
+        //why can't this value be returned by calling
         return $this->data;
     }
 }
