@@ -43,10 +43,22 @@ class Database {
     public function selectAll(){
         $sql = "SELECT * FROM `view_alldata` WHERE 1";
         $this->data = $this->connect()->query($sql)->fetchAll();
+        
+        //This is just a test
+        return $this;
+        
        
     }
     public function getData(){
         //why can't this value be returned by calling
+        /*
+        
+        $database = Database::getInstance();
+        $row = $database->getData();
+        var_dump($row);
+        
+        */
+        
         return $this->data;
     }
 }
